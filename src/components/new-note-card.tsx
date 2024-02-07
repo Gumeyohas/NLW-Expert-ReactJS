@@ -13,25 +13,34 @@ export function NewNoteCard() {
 
   function handleContentChanged(event: ChangeEvent<HTMLTextAreaElement>) {
     setContent(event.target.value)
-
-
+    
     if (event.target.value === '') {
       setShouldShowOnBoarding(true)
     }
   }
 
-  function handleContentUndo() {
+  /*Volta para a tela de adicionar nota e fecha o editor*/
+  function handleCloseEditor() {
     setShouldShowOnBoarding(true)
+    setContent("")
   }
 
   function handleSaveNote(event: FormEvent) {
     event.preventDefault()
+    if(content === ''){
+      toast.error("Preencha a nota antes de salvar!")
+      console.log(`Esse conteúdo está vazio: ${content}`)
+    }else {
+      toast.success('Nota criada com sucesso!')
+      setShouldShowOnBoarding(true)
+      setContent("")
+    }
+
     console.log(content)
-    toast.success('Nota criada com sucesso!')
   }
 
   return (
-    <Dialog.Root>
+    <Dialog.Root onOpenChange={handleCloseEditor}>
       <Dialog.Trigger className="rounded-md flex flex-col bg-slate-700 text-justify p-5 gap-3 outline-none hover:ring-2 hover:ring-slate-600 focus-visible:ring-2 focus-visible:ring-lime-400" >
         <span className="text-sm font-medium text-slate-200">
           Adicionar nota
@@ -45,10 +54,10 @@ export function NewNoteCard() {
         <Dialog.Overlay className="inset-0 fixed bg-black/60" />
         <Dialog.Content className="fixed overflow-hidden left-1/2 top 1/2 -translate-x-1/2 -translate-y-1/2 max-w-[640px] w-full h-[60vh] bg-slate-700 rounded-md flex flex-col" >
           
-          <button onClick={handleContentUndo} className="absolute right-8 bg-transparent p-1.5 text-slate-400 hover:text-slate-100">
+          <button onClick={handleCloseEditor} className={`absolute right-8 bg-transparent p-1.5 text-slate-400 hover:text-slate-100 ${shouldShowOnBoarding ? "hidden" : "block" }`}>
             <Undo2 className="size-5" />
           </button>
-          <Dialog.Close className="absolute right-0 top-0 bg-slate-800 p-1.5 text-slate-400 rounded-bl hover:text-slate-100" >
+          <Dialog.Close onClick={handleCloseEditor} className="absolute right-0 top-0 bg-slate-800 p-1.5 text-slate-400 rounded-bl hover:text-slate-100" >
             <X className="size-5" />
           </Dialog.Close>
 
