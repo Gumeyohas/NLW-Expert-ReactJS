@@ -3,7 +3,12 @@ import { X, Undo2 } from "lucide-react"
 import { useState } from "react"
 import { toast } from 'sonner'
 
-export function NewNoteCard() {
+interface NewNoteCardProps {
+  onNoteCreated: (content: string) => void
+}
+
+
+export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
   const [shouldShowOnBoarding, setShouldShowOnBoarding] = useState(true) 
   const [content, setContent] = useState('')
   
@@ -29,11 +34,12 @@ export function NewNoteCard() {
     event.preventDefault()
     if(content === ''){
       toast.error("Preencha a nota antes de salvar!")
-      console.log(`Esse conteúdo está vazio: ${content}`)
+      
     }else {
-      toast.success('Nota criada com sucesso!')
+      onNoteCreated(content)
       setShouldShowOnBoarding(true)
       setContent("")
+      toast.success('Nota criada com sucesso!')
     }
 
     console.log(content)
