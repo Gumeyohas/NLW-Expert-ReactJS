@@ -104,7 +104,7 @@ export function NewNoteCard({ onNoteCreated }: NewNoteCardProps) {
 
       <Dialog.Portal>
         <Dialog.Overlay className="inset-0 fixed bg-black/60" />
-        <Dialog.Content className="fixed overflow-hidden inset-0 md:inset-auto md:left-1/2 md:top 1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-[640px] w-full md:h-[60vh] bg-slate-700 md:rounded-md flex flex-col outline-none" >
+        <Dialog.Content className="fixed overflow-hidden inset-0 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:max-w-[640px] w-full md:h-[60vh] bg-slate-700 md:rounded-md flex flex-col outline-none" >
           
           <button onClick={handleCloseEditor} className={`absolute right-8 bg-transparent p-1.5 text-slate-400 hover:text-slate-100 ${shouldShowOnBoarding ? "hidden" : "block" }`}>
             <Undo2 className="size-5" />
